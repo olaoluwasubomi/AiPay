@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.logo-bg{
+    background-image:url("/images/Frame 1278.png");
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.logobtn{
+    background:#8D8D8D;
+}
+.logocolor{
+    color:#818080;
+}
+.signup{
+    color:#1760BA;
+}
+.loginbg{
+    background:#1760BA;
+}
+.textcolor{
+    color:#484747;
+}
+.inputbg{
+    background:#EEEEEE;
+}
+.buttonwidth{
+    width:47%;
+}
+.belowbutton{
+    width:75%;
+}
