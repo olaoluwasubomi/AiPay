@@ -65,7 +65,9 @@ const  Login = () =>{
                 <BackgroundImage  />
             </div>
             <div className="w-1/2 px-20">
-                <p className="logocolor w-full flex items-center justify-end text-sm">Don't have an account? <a href="#" className="block font-bold signup text-base">Sign Up</a></p>
+                <p className="logocolor w-full flex items-center justify-end text-sm">Don't have an account?
+                    <Link to="/SignUp">Sign Up</Link> 
+                </p>
                 <FormComponent 
                     heading="Login"
                     text="Login to continue using AiPay"
@@ -74,7 +76,8 @@ const  Login = () =>{
                     link="Forgot Psssword?"
                 />
                 <Link className="flex items-center justify-end w-2/3 mt-3 signup font-semibold text-base" to="/ForgotPassword">Forgot Password?</Link>
-                <button className="my-14 loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg">Login</button>
+                {/* <button className="my-14 loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg">Login</button> */}
+                <Link className="my-14 loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg block text-center" to="/Index">Login</Link>
                 <div className="flex items-center justify-between w-2/3">
                     <hr className="border-1 w-2/3 textcolor" />
                     <span className="text-xl px-3">or</span>

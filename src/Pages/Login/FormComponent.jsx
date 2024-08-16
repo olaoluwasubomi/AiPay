@@ -10,17 +10,34 @@ const FormComponent = ({heading,text,fields=[]}) =>{
                 {fields.map((field, i) => {
                     return(
                         <div key={i}>
-                            <label className="mt-10 block px-2 font-bold">{field.label}</label>
-                            <div className="flex items-center mt-2  inputbg justify-between w-2/3  px-4 rounded-xl">
-                                <input className="block outline-none w-2/3 py-4 inputbg textcolor rounded-xl placeholder-custom-gray" 
-                                    type={field.type} 
-                                    placeholder={field.placeholder}
-                                    name={field.name}
-                                    required
-                                />
-
-                                <p className="text-2xl">{field.icon}</p>
-                            </div>
+                            <label className="mt-5 block px-2 font-bold">{field.label}</label>
+                            {field.type === 'textarea' ? (
+                                    <textarea
+                                        className="block outline-none w-2/3 px-4 py-4 inputbg textcolor rounded-xl placeholder-custom-gray resize-none h-40"
+                                        placeholder={field.placeholder}
+                                        name={field.name}
+                                        required
+                                    />
+                                ) : field.type === 'select' ? (
+                                    <select
+                                        className="block outline-none w-2/3 px-4 py-4 inputbg textcolor rounded-xl placeholder-custom-gray"
+                                        name={field.name}
+                                        required
+                                    >
+                                        <option value="">{field.placeholder}</option>
+                                        {/* Add select options here */}
+                                        <option value="industry1">Industry 1</option>
+                                        <option value="industry2">Industry 2</option>
+                                    </select>
+                                ) : (
+                                    <input
+                                        className="block outline-none w-2/3 px-4 py-4 inputbg textcolor rounded-xl placeholder-custom-gray"
+                                        type={field.type}
+                                        placeholder={field.placeholder}
+                                        name={field.name}
+                                        required
+                                    />
+                                )}
                             
                             
                         </div>
