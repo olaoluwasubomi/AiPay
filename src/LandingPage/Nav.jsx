@@ -13,8 +13,8 @@ const Nav = () =>{
                 <Link className="block px-12">About Us</Link>
             </div>
             <div className="w-1/5  flex items-center justify-between">
-                <Link className="block py-3 rounded-xl loginbg text-white w-5/12 text-center">Get Started</Link>
-                <Link className="block py-3 rounded-xl border-2 text-textcolor w-5/12 text-center">Login</Link>
+                <Link className="block py-3 rounded-xl loginbg text-white w-5/12 text-center" to="/SignUp">Get Started</Link>
+                <Link className="block py-3 rounded-xl border-2 text-textcolor w-5/12 text-center" to="/">Login</Link>
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ const SignUp = () =>{
     return(
         <div id="#signup">
             <Layout>
-                <p className="text-end">Already have an account? <Link to="/LogIn">Sign In</Link></p>
+                <p className="text-end">Already have an account? <Link to="/">Sign In</Link></p>
                 <div className="py-5">
                     <h5 className="font-bold text-3xl text-textcolor">Join AiPay Today</h5>
                     <p className="my-2 text-custom-gray w-1/2 font-medium leading-5">Secure payment easily anytime from anywhere, create an e-store in just simple steps, buy high quality products, all on AiPay.</p>

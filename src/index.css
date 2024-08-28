@@ -32,3 +32,18 @@
 .belowbutton{
     width:75%;
 }
+.custom-list li::marker {
+    color: #1760BA; /* Replace with your desired color */
+    font-weight: bold; /* Make the bullets bolder */
+    font-size: 2rem; /* Adjust the size if needed */
+}
+.services{
+    background-image:url(../images/SERvices.png);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    width:100%;
+}
+.servicewidth{
+    width:30%;
+}
