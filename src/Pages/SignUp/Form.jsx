@@ -7,7 +7,7 @@ const Form = () =>{
     const Formfields = [
         {label:"Name", type:"text", placeholder:"Enter full name"},
         {label:"Email address", type:"email", placeholder:"Enter email address"},
-        {label:"Phone Number", type:"password", placeholder:"Enter Phone Number"},
+        {label:"Phone Number", type:"number", placeholder:"Enter Phone Number"},
         {label:"Password", type:"Password", placeholder:"Enter password", icon:<IoEye />},
         {label:"Confirm Password", type:"Password", placeholder:"Confirm Password", icon:<IoEye />}
     ]

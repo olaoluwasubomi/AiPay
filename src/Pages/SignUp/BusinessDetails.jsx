@@ -63,7 +63,7 @@ const BusinessDetails = () =>{
                     {/* <button className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold">
                     Proceed
                     </button> */}
-                    <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/">Proceed</Link>
+                    <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/Login">Proceed</Link>
                     {/* Remove the existing Cancel button in the footer */}
                 </div>
             </div>

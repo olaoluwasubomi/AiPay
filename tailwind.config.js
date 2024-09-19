@@ -22,7 +22,12 @@ export default {
         'servicelibg':"#D2E3F9",
         'servicel2bg':"#FFCE3C",
         'getstartedbg':'#3B8AEB',
-        'footerbg':'#F5F9FF'
+        'footerbg':'#F5F9FF',
+        'profilelogobg':'#4D4D4D',
+        'profiletext':'#8D8D8D',
+        'formheadcolor':'#2C2B2B',
+        'inputbg':'#EEEEEE',
+        'bankbg':"#FBFBFB"
       },
       inset: {
         '3/5':'95%',

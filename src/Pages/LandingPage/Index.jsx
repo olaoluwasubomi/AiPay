@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "../LandingPage/Nav";
+import Nav from "./Nav";
 import Servicedata from "./Servicedata";
 import Footer from "./Footer";
 const Index = () =>{

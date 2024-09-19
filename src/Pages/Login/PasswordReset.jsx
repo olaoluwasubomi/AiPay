@@ -25,7 +25,7 @@ const PasswordReset = () =>{
         }, 1000);
 
         const redirectTimeout = setTimeout(() => {
-            navigate("/"); // Redirect to the index page
+            navigate("/Login"); // Redirect to the login page
         }, 5000); // 5 seconds
 
         // Cleanup the intervals and timeouts when the component unmounts
@@ -60,7 +60,7 @@ const PasswordReset = () =>{
                         <img src="/images/icon-park-outline_success.png" className="items-center justify-center block text-center mx-auto w-16" />
                         <h5 className="font-bold  text-lg text-custom-gray text-center mt-6">Password Reset Successful</h5>
                         <p className="text-center mt-3 w-4/5 mx-auto font-medium text-sm">Your password reset was successful. Log in to your account.</p>
-                        <button className="block w-1/2 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold mb-10" onClick={() => navigate("/")}>Redirecting in 5 secs</button>
+                        <button className="block w-1/2 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold mb-10" onClick={() => navigate("/Login")}>Redirecting in 5 secs</button>
                     </div>
                 </div>
             )}
