@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./Nav";
 import Servicedata from "./Servicedata";
 import Footer from "./Footer";
+import { TextGenerateEffect } from "../../components/ui/text-generate-effect";
 const Index = () =>{
     const service = Servicedata.map((item, i) => {
         return (
@@ -18,14 +19,21 @@ const Index = () =>{
         )
     })
     return(
-        <div>
+        <div className="overflow-hidden">
             <Nav />
 
             {/* The header */}
             <div className="flex items-start justify-between w-full">
                 <div className="pt-24 pb-36 px-20 bg-gradient-to-b from-firstsec to-white w-full">
                     <p className="w-5/12 py-5 bg-payment text-textcolor text-center rounded-xl font-bold">Easy payment, efficient services</p>
-                    <h3 className="my-4 text-5xl font-bold">Secure <span className="text-paymentcolor">Payment Easily</span> <br /> Anytime And From <br />Anywhere</h3>
+                    <h3 className="my-4 text-6xl font-bold">
+                        <div className="flex items-start justify-start mb-5">
+                            <TextGenerateEffect words="Secure" className="text-black inline" duration={1.5} />
+                            <TextGenerateEffect words="Payment Easily" className="text-paymentcolor inline ml-2" duration={1.5} />
+                        </div>
+                        Anytime And From
+                        <TextGenerateEffect words="Anywhere" className="text-black mt-5" duration={1.5} />
+                    </h3>
                     <p className="mt-8 font-bold text-xl text-landingtextcolor w-11/12">AiPay is a well secured online payment platform for indiviuals and organisations, ensuring no one ever gets stuck while waiting to verify payment.</p>
                     <div className="flex items-center justify-between w-7/12 mt-5">
                         <button className="block py-4 border-2 text-center bg-textcolor rounded-xl w-5/12 text-white font-bold text-sm">For Business</button>
@@ -38,11 +46,11 @@ const Index = () =>{
                 <div className="pt-24 pb-5 pl-10 bg-gradient-to-b from-secondsec to-white w-full relative">
                     <div className="flex items-center justify-center w-1/4 py-2 text-center rounded-xl bg-white absolute top-96 -left-1 z-10">
                         <img src="/images/globe.png" className="w-1/12" />
-                        <p className="pl-3 text-textcolor">Free Online Store</p>
+                        <p className="pl-3 text-textcolor" data-aos="fade-right" data-aos-duration="2000">Free Online Store</p>
                     </div>
                     <div className="flex items-center flex-row-reverse justify-center w-1/4 py-2 text-center rounded-xl bg-white mt-10 absolute inset-x-2/3 top-48">
                         <img src="/images/navigation.png" className="w-1/12" />
-                        <p className="pr-3 text-textcolor">Seamless transaction</p>
+                        <p className="pr-3 text-textcolor z-10" data-aos="fade-down" data-aos-duration="2000">Seamless transaction</p>
                     </div>
                     {/* Images */}
                     <div className="flex items-start justify-between w-full">

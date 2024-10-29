@@ -12,6 +12,7 @@ import ProfileForm from "../Pages/Profilesetup/ProfileForm";
 import Profile from "../Pages/Profilesetup/Profile";
 import ProfileDashboard from "../Pages/Profilesetup/ProfileDashboard";
 import AccountReview from "../Pages/Profilesetup/AccountReview"
+import DashboardEmpty from "../Pages/Dashboard/DashboardEmpty";
 
 const AppRoutes = () =>{
     return(
@@ -27,6 +28,7 @@ const AppRoutes = () =>{
             <Route name="Profile" path="/Profile" element={<Profile />} />
             <Route name="ProfileDashboard" path="/ProfileDashboard" element={<ProfileDashboard />} />
             <Route name="AccountReview" path="/AccountReview" element={<AccountReview />} />
+            <Route name="DashboardEmpty" path="/DashboardEmpty" element={<DashboardEmpty/>} />
         </Routes>
     )
 }

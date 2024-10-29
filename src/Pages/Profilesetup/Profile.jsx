@@ -4,6 +4,7 @@ import ProfileForm from "../Profilesetup/ProfileForm";
 import Backbutton from "../Login/Backbutton";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ThreeCircles } from "react-loader-spinner";
 const Profile = () => {
     const [savebutton, setsavebutton] = useState(false);
     const [proceedbtn, setproceedbtn] = useState(false);
@@ -198,8 +199,21 @@ const Profile = () => {
 
             {success && handleCancelClick && countdown && (
                 <div className="fixed  inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white px-10 pt-24 pb-24 w-4/12 shadow-lg relative rounded-xl">
-                        <img src="/images/Group 58.png" className="mx-auto" />
+                    <div className="bg-white px-10 pt-24 pb-24 w-4/12 shadow-lg relative rounded-xl loader-container">
+                    <div className="mx-auto flex items-center justify-center">
+                        <ThreeCircles
+                        className="mx-auto"
+                        visible={true}
+                        height="100"
+                        width="100"
+                        color="#1760BA"
+                        ariaLabel="three-circles-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        />
+                    </div>
+                    
+                        {/* <img src="/images/Group 58.png" className="mx-auto" /> */}
                         <p className="text-formheadcolor text-2xl font-semibold text-center mt-10">We are confirming your payment</p>
                         <p className="text-center w-3/4 mx-auto mt-5">Hello Ade, we are currently awaiting the confirmation of your payment. Please hold on. We will let you know when you are set to continue.</p>
                     </div>

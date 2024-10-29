@@ -11,7 +11,7 @@ const ProfileDashboard = () =>{
                 <img src="/images/icon-park-outline_success (2).png" className="mx-auto" />
                 <p className="text-2xl font-bold text-center mt-4">Your account is under review</p>
                 <p className="text-center text-lg">Hello Ade, your account is still under review. We will let you know when you are set to continue.</p>
-                <Link className="block w-2/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="">Go to Dashboard</Link>
+                <Link className="block w-2/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/DashboardEmpty">Go to Dashboard</Link>
             </div>
                 
             </div>
