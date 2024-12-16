@@ -27,10 +27,19 @@ export default {
         'profiletext':'#8D8D8D',
         'formheadcolor':'#2C2B2B',
         'inputbg':'#EEEEEE',
-        'bankbg':"#FBFBFB"
+        'bankbg':"#FBFBFB",
+        'dashboardbg':"#E7E7E7"
       },
       inset: {
         '3/5':'95%',
+      },
+
+      screens:{
+        'sm':'200px',
+        'md':'768px',
+        'lg':'1030px',
+        'xl':'1200px',
+        '2xl':'1450px'
       }
     },
   },

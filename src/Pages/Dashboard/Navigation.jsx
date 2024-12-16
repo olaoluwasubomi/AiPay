@@ -13,7 +13,7 @@ const Navigation = () =>{
         setactiveNav(nav);
     };
     return(
-        <div className="bg-red-500 px-10 w-1/5 py-4 h-fit">
+        <div className="bg-white px-8 w-1/5 py-4 h-screen">
             <div>
                 <button className="bg-profilelogobg px-10 py-3 text-white rounded-lg text-sm">Logo</button>
                 <div className="flex items-center justify-start w-full mt-4">
@@ -32,7 +32,7 @@ const Navigation = () =>{
                     onClick={() => handleNavClick("dashboard")}
             >
                 <FiHome className="text-2xl text-black" />
-                <span className="block mt-1 ml-2 text-xl text-black">Dashboard</span>
+                <span className="block mt-1 ml-2 text-lg text-black">Dashboard</span>
                 
             </Link>
 
@@ -44,7 +44,7 @@ const Navigation = () =>{
                     onClick={() => handleNavClick("sales")}
             >
                <SlBasket className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-xl text-black">Sales</span>
+                <span className="block mt-1 ml-2 text-lg text-black">Sales</span>
             </Link>
 
             {/* Settings */}
@@ -55,7 +55,7 @@ const Navigation = () =>{
                     onClick={() => handleNavClick("products")}
             >
                <HiOutlineShoppingBag className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-xl text-black">Products</span>
+                <span className="block mt-1 ml-2 text-lg text-black">Products</span>
             </Link>
             <h3 className="uppercase text-2xl text-profiletext">user</h3>
             <hr className="border opacity-20 mt-2" />
@@ -66,7 +66,7 @@ const Navigation = () =>{
                     onClick={() => handleNavClick("notifications")}
             >
                <IoMdNotificationsOutline className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-xl text-black">Notifications</span>
+                <span className="block mt-1 ml-2 text-lg text-black">Notifications</span>
             </Link>
             <Link
                 className={`flex items-center justify-start py-2 px-0  mb-5 text-white ${
@@ -75,24 +75,27 @@ const Navigation = () =>{
                     onClick={() => handleNavClick("profile")}
             >
                 <FaRegUser className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-xl text-black">Profile</span>
+                <span className="block mt-1 ml-2 text-lg text-black">Profile</span>
             </Link>
             <Link
-                className={`flex items-center justify-start py-2 px-0  text-white ${
-                    activeNav === "settings" ? "bg-blue-500" : "bg-transparent"
-                    }`}
-                    onClick={() => handleNavClick("settings")}
+                className={`flex items-center justify-start py-2 px-0 ${
+                activeNav === "settings" ? "bg-blue-500 text-white" : "bg-transparent text-white"
+                }`}
+                onClick={() => handleNavClick("settings")}
             >
-                <IoSettingsOutline className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-xl text-black">Settings</span>
+                <IoSettingsOutline className={`text-2xl ${activeNav === "settings" ? "text-white" : "text-black"}`} />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "settings" ? "text-white" : "text-black"}`}>
+                Settings
+                </span>
             </Link>
+
             </nav>
 
-            <div className="mt-36 mx-auto bg-yellow-500 w-full px-10 py-10">
-                <img src="/images/Ellipse 1.png" className="mx-auto w-1/2x"/>
-                <p>Ade Johnson</p>
-                <h4>Johnson Ventures</h4>
-                <Link>Log Out</Link>
+            <div className="mt-20 bg-payment w-full px-10 pb-2">
+                <img src="/images/Ellipse 1.png" className="mx-auto w-1/3"/>
+                <p className="text-center mt-2">Ade Johnson</p>
+                <h4 className="text-center font-bold text-base">Johnson Ventures</h4>
+                <Link className="loginbg px-10 py-3 text-white rounded-lg text-sm mt-2 w-2/3 block mx-auto text-center">Log Out</Link>
             </div>
         </div>
     )
