@@ -30,9 +30,10 @@ const Navigation = () =>{
                     activeNav === "dashboard" ? "bg-blue-500" : "bg-transparent" 
                     }`}
                     onClick={() => handleNavClick("dashboard")}
+                    to='/dashboard'
             >
-                <FiHome className="text-2xl text-black" />
-                <span className="block mt-1 ml-2 text-lg text-black">Dashboard</span>
+                <FiHome className={`text-2xl ${activeNav === "dashboard" ? "text-white" : "text-black"}`} />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "dashboard" ? "text-white" : "text-black"}`}>Dashboard</span>
                 
             </Link>
 
@@ -43,8 +44,8 @@ const Navigation = () =>{
                     }`}
                     onClick={() => handleNavClick("sales")}
             >
-               <SlBasket className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-lg text-black">Sales</span>
+               <SlBasket className={`text-2xl ${activeNav === "sales" ? "text-white" : "text-black"}`}  />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "sales" ? "text-white" : "text-black"}`}>Sales</span>
             </Link>
 
             {/* Settings */}
@@ -54,8 +55,8 @@ const Navigation = () =>{
                     }`}
                     onClick={() => handleNavClick("products")}
             >
-               <HiOutlineShoppingBag className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-lg text-black">Products</span>
+               <HiOutlineShoppingBag className={`text-2xl ${activeNav === "products" ? "text-white" : "text-black"}`}  />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "products" ? "text-white" : "text-black"}`}>Products</span>
             </Link>
             <h3 className="uppercase text-2xl text-profiletext">user</h3>
             <hr className="border opacity-20 mt-2" />
@@ -65,8 +66,8 @@ const Navigation = () =>{
                     }`}
                     onClick={() => handleNavClick("notifications")}
             >
-               <IoMdNotificationsOutline className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-lg text-black">Notifications</span>
+               <IoMdNotificationsOutline className={`text-2xl ${activeNav === "notifications" ? "text-white" : "text-black"}`}  />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "notifications" ? "text-white" : "text-black"}`}>Notifications</span>
             </Link>
             <Link
                 className={`flex items-center justify-start py-2 px-0  mb-5 text-white ${
@@ -74,8 +75,8 @@ const Navigation = () =>{
                     }`}
                     onClick={() => handleNavClick("profile")}
             >
-                <FaRegUser className="text-2xl text-black"  />
-                <span className="block mt-1 ml-2 text-lg text-black">Profile</span>
+                <FaRegUser className={`text-2xl ${activeNav === "profile" ? "text-white" : "text-black"}`}   />
+                <span className={`block mt-1 ml-2 text-lg ${activeNav === "profile" ? "text-white" : "text-black"}`}>Profile</span>
             </Link>
             <Link
                 className={`flex items-center justify-start py-2 px-0 ${

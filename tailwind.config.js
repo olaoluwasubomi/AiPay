@@ -28,7 +28,8 @@ export default {
         'formheadcolor':'#2C2B2B',
         'inputbg':'#EEEEEE',
         'bankbg':"#FBFBFB",
-        'dashboardbg':"#E7E7E7"
+        'dashboardbg':"#E7E7E7",
+        'iconcolor':"#D8EAFF"
       },
       inset: {
         '3/5':'95%',

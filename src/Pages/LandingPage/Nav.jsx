@@ -10,7 +10,7 @@ const Nav = () => {
     };
 
     return (
-        <div className="bg-white px-4 md:px-20 flex items-center justify-between w-full py-5">
+        <div className="bg-white px-4 md:px-20 flex items-center justify-between w-full 2xl:py-5 xl:py-5 lg:py-5 md:py-10 sm:py-10">
             <div className="w-1/5">
                 <button className="logobtn px-6 py-2 text-white rounded-lg text-sm">Logo</button>
             </div>
@@ -19,7 +19,7 @@ const Nav = () => {
                 <Link className="px-12 flex items-center justify-center">Products <IoMdArrowDropdown /></Link>
                 <Link className="block px-12">About Us</Link>
             </div>
-            <div className="w-1/5 flex items-center justify-between">
+            <div className="w-1/5 flex items-center justify-between 2xl:flex xl:flex lg:flex md:hidden sm:hidden">
                 <Link className="block py-3 rounded-xl loginbg text-white w-5/12 text-center" to="/SignUp">Get Started</Link>
                 <Link className="block py-3 rounded-xl border-2 text-textcolor w-5/12 text-center" to="/Login">Login</Link>
             </div>
@@ -31,13 +31,13 @@ const Nav = () => {
             </div>
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="absolute top-16 left-0 w-full bg-white shadow-lg z-10 md:hidden">
-                    <div className="flex flex-col items-center py-5">
-                        <Link className="block py-2" onClick={toggleMenu} to="/">Services</Link>
-                        <Link className="block py-2 flex items-center justify-center" onClick={toggleMenu} to="/">Products <IoMdArrowDropdown /></Link>
-                        <Link className="block py-2" onClick={toggleMenu} to="/">About Us</Link>
-                        <Link className="block py-3 rounded-xl loginbg text-white w-5/12 text-center" onClick={toggleMenu} to="/SignUp">Get Started</Link>
-                        <Link className="block py-3 rounded-xl border-2 text-textcolor w-5/12 text-center" onClick={toggleMenu} to="/Login">Login</Link>
+                <div className="absolute top-20 left-0 w-full bg-white shadow-lg z-10 md:hidden">
+                    <div className="flex flex-col items-start px-5 py-10">
+                        <Link className="block 2xl:py-2 xl:py-2 lg:py-2 md:py-5 sm:py-3 sm:text-lg" onClick={toggleMenu} to="/">Services</Link>
+                        <Link className="block 2xl:py-2 xl:py-2 lg:py-2 md:py-5 sm:py-3 sm:text-lg flex items-center justify-center" onClick={toggleMenu} to="/">Products <IoMdArrowDropdown /></Link>
+                        <Link className="block 2xl:py-2 xl:py-2 lg:py-2 md:py-5 sm:py-3 sm:text-lg" onClick={toggleMenu} to="/">About Us</Link>
+                        <Link className="block py-3 mt-5 rounded-xl loginbg text-white w-5/12 text-center" onClick={toggleMenu} to="/SignUp">Get Started</Link>
+                        <Link className="block py-3 mt-7 rounded-xl border-2 text-textcolor w-5/12 text-center" onClick={toggleMenu} to="/Login">Login</Link>
                     </div>
                 </div>
             )}

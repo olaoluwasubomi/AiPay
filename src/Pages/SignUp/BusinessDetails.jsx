@@ -30,14 +30,14 @@ const BusinessDetails = () =>{
                 text="Provide your business details"
                 fields={BusinessFields}
             />
-            <Link className="loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg block text-center mt-10" onClick={handleContinueClick}>Continue</Link>
+            <Link className="loginbg p-3 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-full sm:w-full rounded-xl text-white font-bold text-lg block text-center mt-10" onClick={handleContinueClick}>Continue</Link>
             </Layout>
 
 
 
             {isModalVisible && (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                <div className="bg-white p-10 w-1/3 shadow-lg relative rounded-xl">
+                <div className="bg-white p-10 2xl:w-1/3 xl:w-1/3 lg:w-1/3 md:w-2/3 sm:w-full shadow-lg relative rounded-xl">
                     {/* Cancel (X) button */}
                     <button
                         className="absolute top-3 right-3 text-black text-xl font-bold rounded-full border-2 p-2 px-3 border-black"
@@ -57,13 +57,13 @@ const BusinessDetails = () =>{
                     Tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum.
                     </span>
                     </p>
-                    <button className="mx-auto block bg-agree text-custom-gray py-4 text-center rounded-xl w-4/5 font-bold">
+                    <button className="mx-auto block bg-agree text-custom-gray py-4 text-center rounded-xl 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full font-bold">
                     I agree with the terms and conditions
                     </button>
-                    {/* <button className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold">
+                    {/* <button className="block 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold">
                     Proceed
                     </button> */}
-                    <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/Login">Proceed</Link>
+                    <Link className="block 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/Login">Proceed</Link>
                     {/* Remove the existing Cancel button in the footer */}
                 </div>
             </div>

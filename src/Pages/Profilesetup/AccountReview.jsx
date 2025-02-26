@@ -5,9 +5,9 @@ const ProfileDashboard = () =>{
     return(
         <div>
             <Nav />
-            <h4 className="w-4/5 mx-auto mt-16 text-textcolor font-bold text-2xl">Getting Started</h4>
-            <div className="bg-bankbg w-4/5 py-44 mx-auto mt-2 rounded-lg">
-            <div className="w-1/3 mx-auto my-auto">
+            <h4 className="2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-1/2 sm:w-[95%]  mx-auto 2xl:mt-16 xl:mt-16 lg:mt-16 md:mt-10 sm:mt-32 text-textcolor font-bold text-2xl">Getting Started</h4>
+            <div className="bg-bankbg 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-1/2 sm:w-[95%] 2xl:py-44 xl:py-44 lg:py-36 md:py-20 sm:py-20 mx-auto 2xl:mt-2 xl:mt-2 lg:mt-5 md:mt-5 sm:mt-32 rounded-lg">
+            <div className="2xl:w-1/3 xl:w-1/3 lg:w-1/3 md:w-1/2 sm:w-[90%] mx-auto my-auto">
                 <img src="/images/icon-park-outline_success (2).png" className="mx-auto" />
                 <p className="text-2xl font-bold text-center mt-4">Your account is under review</p>
                 <p className="text-center text-lg">Hello Ade, your account is still under review. We will let you know when you are set to continue.</p>

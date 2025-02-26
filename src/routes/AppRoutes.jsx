@@ -14,6 +14,7 @@ import ProfileDashboard from "../Pages/Profilesetup/ProfileDashboard";
 import AccountReview from "../Pages/Profilesetup/AccountReview"
 import DashboardEmpty from "../Pages/Dashboard/DashboardEmpty";
 import DashboardLive from "../Pages/Dashboard/DashboardLive";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 const AppRoutes = () =>{
     return(
@@ -31,6 +32,7 @@ const AppRoutes = () =>{
             <Route name="AccountReview" path="/AccountReview" element={<AccountReview />} />
             <Route name="DashboardEmpty" path="/DashboardEmpty" element={<DashboardEmpty/>} />
             <Route name="DashboardLive" path="/DashboardLive" element={<DashboardLive />} />
+            <Route name="dashboard" path="/dashboard" element={<Dashboard />} />
         </Routes>
     )
 }

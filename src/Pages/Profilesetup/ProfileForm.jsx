@@ -9,27 +9,27 @@ import { ProfileFields4 } from "./Profilefields";
 // import { ProfileFields2 } from "./ProfileFields";
 const ProfileForm = () =>{
     return(
-        <div className="flex items-start flex-wrap justify-between w-full bg-white rounded-xl shadow-xl px-5 py-5 mt-3">
-            <div className="formwidth mb-10">
+        <div className="flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-col sm:flex-col items-start flex-wrap justify-between w-full bg-white rounded-xl shadow-xl px-5 py-5 mt-3">
+            <div className="2xl:w-[49%] xl:w-[49%] lg:w-[49%] md:w-full sm:w-full mb-10">
                 <ProfileFormComponent 
                 head = "General Information"
                 fields={ProfileFields}
                 />
             </div>
-            <div className="formwidth mb-10">
+            <div className="2xl:w-[49%] xl:w-[49%] lg:w-[49%] md:w-full sm:w-full mb-10">
                 <ProfileFormComponent
                 head = "Location"
                 fields={ProfileFields2}
                 />
             </div>
             
-            <div className="formwidth">
+            <div className="2xl:w-[49%] xl:w-[49%] lg:w-[49%] md:w-full sm:w-full">
                 <ProfileFormComponent 
                 head ="Financial Information"
                 fields = {ProfileFields3}
                 />
             </div>
-            <div className="formwidth">
+            <div className="2xl:w-[49%] xl:w-[49%] lg:w-[49%] md:w-full sm:w-full">
                 <ProfileFormComponent
                 head="About Business"
                 fields = {ProfileFields4} 

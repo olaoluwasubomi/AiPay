@@ -60,13 +60,13 @@ const  Login = () =>{
         {label:"Password", type:"password", placeholder:"Enter Password", icon:<IoEye />}
     ]
     return(
-        <div className="flex items-center justify-between w-full h-screen">
-            <div className="w-1/2">
+        <div className="flex 2xl:flex xl:flex lg:flex md:flex sm:block items-start justify-between w-full h-screen">
+            <div className="2xl:w-1/2  xl:w-1/2 lg:w-1/2 md:w-1/2 ">
                 <BackgroundImage  />
             </div>
-            <div className="w-1/2 px-20">
+            <div className="2xl:w-1/2 xl:w-1/2 lg:w-1/2 md:w-1/2 sm:w-full 2xl:px-20 xl:px-20 lg:px-5 md:px-2 sm:px-5 2xl:py-20 xl:py-0 lg:py-0 md:py-0 sm:py-12 h-screen">
                 <p className="logocolor w-full flex items-center justify-end text-sm">Don't have an account?
-                    <Link to="/SignUp">Sign Up</Link> 
+                    <Link to="/SignUp" className="sm:text-xl md:text-xl lg:text-base xl:text-sm 2xl:text-sm">Sign Up</Link> 
                 </p>
                 <FormComponent 
                     heading="Login"
@@ -75,15 +75,15 @@ const  Login = () =>{
                     button="Login"
                     link="Forgot Psssword?"
                 />
-                <Link className="flex items-center justify-end w-2/3 mt-3 signup font-semibold text-base" to="/ForgotPassword">Forgot Password?</Link>
+                <Link className="flex items-center justify-end 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-full sm:w-full mt-3 signup font-semibold text-base" to="/ForgotPassword">Forgot Password?</Link>
                 {/* <button className="my-14 loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg">Login</button> */}
-                <Link className="my-14 loginbg p-3 w-2/3 rounded-xl text-white font-bold text-lg block text-center" to="/Profile">Login</Link>
-                <div className="flex items-center justify-between w-2/3">
+                <Link className="my-14 loginbg p-3 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-full sm:w-full rounded-xl text-white font-bold text-lg block text-center" to="/Profile">Login</Link>
+                <div className="flex items-center justify-between 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-2/3 sm:w-full">
                     <hr className="border-1 w-2/3 textcolor" />
                     <span className="text-xl px-3">or</span>
                     <hr className="border-1 w-2/3 textcolor" />
                 </div>
-                <div className="flex items-center justify-between w-2/3 flex-wrap">
+                <div className="flex items-center justify-between 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-2/3 sm:w-full flex-wrap">
                     <button className="flex items-center justify-start bg-red-900 mt-2 py-4 buttonwidth inputbg rounded-xl px-6 font-bold text-sm "><img src="/images/logos_facebook.png" className="pr-2" />Log in with Facebook</button>
                     <button className="flex items-center justify-start bg-red-900 mt-2 py-4 buttonwidth inputbg rounded-xl px-6 font-bold text-sm"><img src="/images/flat-color-icons_google.png" className="pr-2" />Log  in with Google</button>
                     <button className="flex items-center justify-start bg-red-900 mt-6 py-4 belowbutton inputbg rounded-xl px-6 font-bold text-sm mx-auto"><img src="/images/streamline_web-solid.png" className="pr-2" />Log in with the Company Domain Name</button>

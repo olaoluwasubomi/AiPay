@@ -56,17 +56,17 @@ const Profile = () => {
     return(
         <div className="">
             <Nav />
-            <div className="px-44 py-20">
+            <div className="2xl:px-44 xl:px-40 lg:px-20 md:px-10 sm:px-3 2xl:py-20 xl:py-20 lg:py-20 md:py-10 sm:py-5">
                 <h4 className="text-textcolor text-4xl font-bold">Profile Set Up</h4>
                 <p className="mt-2 text-profiletext text-sm">NB: Note that you will be required to pay a token fee for your business to be verified.
                     <span className="ml-2 text-textcolor text-sm underline font-bold">Learn More</span>
                 </p>
-                <div className="flex items-start justify-between">
-                    <div className="w-4/5">
+                <div className="flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-col sm:flex-col items-start justify-between">
+                    <div className="2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full">
                         <h3 className="uppercase mt-2 font-bold">user details</h3>
                         <ProfileForm />
                     </div>
-                    <div className="w-1/5 bg-white shadow-lg mt-11 ml-7 px-5 pt-5 pb-80 rounded-xl">
+                    <div className="2xl:w-1/5 xl:w-1/5 lg:w-1/5 md:w-full sm:w-full bg-white shadow-lg mt-11 2xl:ml-7 xl:ml-7 lg:ml-7 md:ml-0 sm:ml-0 px-5 pt-5 pb-80 rounded-xl">
                         <h3 className="uppercase text-formheadcolor font-bold">Logo</h3>
                         <div className="mt-10 border border-dashed px-3">
                             <img src="/images/Frame 233.png" className="mx-auto mt-16" />
@@ -77,7 +77,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-end w-full px-44 pb-16">
+            <div className="flex items-center justify-end w-full 2xl:px-44 xl:px-44 lg:px-20 md:px-10 sm:px-5 pb-16">
                 <button className="w-52 block py-5 rounded-xl border border-textcolor text-textcolor">Cancel</button>
                 <button className="w-52 block py-5 ml-5 rounded-xl bg-textcolor text-white" onClick={handleSaveButton}>Save</button>
             </div>
@@ -86,7 +86,7 @@ const Profile = () => {
 
             {savebutton && (
                <div className="fixed  inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white px-10 pt-24 pb-12 w-4/12 shadow-lg relative rounded-xl">
+                    <div className="bg-white 2xl:px-10 xl:px-10 lg:px-10 md:px-6 sm:px-5 pt-24 pb-12 2xl:w-4/12 xl:w-4/12 lg:w-1/3 md:w-1/2 sm:w-[95%] shadow-lg relative rounded-xl">
                         {/* Cancel (X) button */}
                         <button
                             className="absolute top-3 right-3 text-black text-xl font-bold rounded-full border-2 p-2 px-3 border-black"
@@ -97,10 +97,10 @@ const Profile = () => {
 
                         <img src="/images/Frame 740.png" className="mx-auto" />
                         <h2 className="text-2xl text-center text-textcolor font-bold mb-4 mt-10">Pay for Account Organization Review</h2>
-                        <p className="text-center text-xl text-profiletext mt-5">Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
-                        <p className="text-center text-xl text-profiletext mt-5">
+                        <p className="text-justify text-xl text-profiletext mt-5">Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
+                        <p className="text-justify text-xl text-profiletext mt-5">
                         Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
-                        <p className="text-center text-xl text-profiletext mt-5">
+                        <p className="text-justify text-xl text-profiletext mt-5">
                         Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
                         <p className="mt-10 text-lg font-bold text-fontcolor text-center">You will be required to pay a sum of <span className="block uppercase text-3xl mt-3 text-textcolor">ngn 10,000</span></p>
                         <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="" onClick={handleProceedbtn}>Proceed</Link>
@@ -110,7 +110,7 @@ const Profile = () => {
 
             {proceedbtn && handleCancelClick && (
                 <div className="fixed  inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white px-10 pt-10 pb-12 w-4/12 shadow-lg relative rounded-xl">
+                    <div className="bg-white px-10 pt-10 pb-12 2xl:w-4/12 xl:w-4/12 lg:w-1/3 md:w-1/2 sm:w-[95%] shadow-lg relative rounded-xl">
                         <Backbutton />
                         <h3 className="text-xl font-bold mt-10">Transfer</h3>
                         <div className="flex items-center justify-between">
@@ -120,7 +120,7 @@ const Profile = () => {
                         <hr className="block border mt-3 w-11/12 mx-auto" />
                         <h3 className="mx-auto w-11/12 text-xl text-center font-normal">Transfer <span className="text-2xl font-bold">NGN 6,000</span> from your bank to <span className="text-2xl font-bold">Rehohub</span></h3>
                         {/* Main div */}
-                        <div className="bg-bankbg w-11/12 mx-auto my-5 rounded-md p-5">
+                        <div className="bg-bankbg 2xl:w-11/12 xl:w-11/12 lg:w-11/12 md:w-1/2 sm:w-full mx-auto my-5 rounded-md p-5">
                             {/* First section */}
                             <div className="flex items-center justify-between w-full mb-2">
                                 <div>
@@ -166,7 +166,7 @@ const Profile = () => {
 
             {confirmbtn && handleCancelClick && (
                 <div className="fixed  inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white px-10 pt-24 pb-12 w-4/12 shadow-lg relative rounded-xl">
+                    <div className="bg-white 2xl:px-10 xl:px-10 lg:px-10 md:px-6 sm:px-2 pt-24 pb-12 2xl:w-4/12 xl:w-4/12 lg:w-1/3 md:w-1/2 sm:w-[95%] shadow-lg relative rounded-xl">
                      {/* Cancel (X) button */}
                         <button
                             className="absolute top-3 right-3 text-black text-xl font-bold rounded-full border-2 p-2 px-3 border-black"
@@ -180,7 +180,7 @@ const Profile = () => {
                            <h3 className="text-2xl font-semibold mt-5 text-textcolor mx-auto text-center">Confirm Payment</h3>
                            <p className="mt-10 text-center font-semibold text-base">Enter your details as we confirm your payment</p>
 
-                           <form className="mt-10 px-16">
+                           <form className="mt-10 2xl:px-16 xl:px-16 lg:px-10 md:px-10 sm:px-5">
                             <label className="block font-semibold text-lg mt-5">Name of account</label>
                             <input type="text" className="block w-full outline-none rounded-lg bg-inputbg py-4 px-3" placeholder="Enter name of account used" required />
                             <label className="block font-semibold text-lg mt-5">Bank</label>
@@ -199,7 +199,7 @@ const Profile = () => {
 
             {success && handleCancelClick && countdown && (
                 <div className="fixed  inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white px-10 pt-24 pb-24 w-4/12 shadow-lg relative rounded-xl loader-container">
+                    <div className="bg-white 2xl:px-10 xl:px-10 lg:px-8 md:px-5 sm:px-2 pt-24 pb-24 2xl:w-4/12 xl:w-4/12 lg:w-1/3 md:w-1/2 sm:w-[95%] shadow-lg relative rounded-xl loader-container">
                     <div className="mx-auto flex items-center justify-center">
                         <ThreeCircles
                         className="mx-auto"
@@ -215,7 +215,7 @@ const Profile = () => {
                     
                         {/* <img src="/images/Group 58.png" className="mx-auto" /> */}
                         <p className="text-formheadcolor text-2xl font-semibold text-center mt-10">We are confirming your payment</p>
-                        <p className="text-center w-3/4 mx-auto mt-5">Hello Ade, we are currently awaiting the confirmation of your payment. Please hold on. We will let you know when you are set to continue.</p>
+                        <p className="text-justify 2xl:w-3/4 xl:w-3/4 lg:w-3/4 md:w-1/2 sm:w-full mx-auto mt-5">Hello Ade, we are currently awaiting the confirmation of your payment. Please hold on. We will let you know when you are set to continue.</p>
                     </div>
            
                 </div>
