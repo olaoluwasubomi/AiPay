@@ -23,7 +23,7 @@ const Dashboard = () =>{
                                 <img src={item.icon} />
                                 <div className="px-3">
                                     <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
+                                    <p>OrderId:{item.orderId}</p>    
                                 </div>
                             </div>
 
