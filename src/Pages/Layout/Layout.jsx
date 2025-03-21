@@ -1,7 +1,7 @@
 import React from "react"
 import Navigation from "../Dashboard/Navigation"
 
-const Layout = ({children}) =>{
+const Layout=({children}) =>{
     return(
         <div className="h-screen bg-bankbg flex justify-between items-start">
             {/* Navigation */}
