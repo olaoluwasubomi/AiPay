@@ -2,7 +2,7 @@ import React from "react";
 import Navigation from "../Dashboard/Navigation"
 import Heading from "./Heading";
 import { Link } from "react-router-dom";
-import Layout from "../Layout /Layout";
+import Layout from "../Layout/Layout";
 const DashboardLive = () =>{
     return(
 

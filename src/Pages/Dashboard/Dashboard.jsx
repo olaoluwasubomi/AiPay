@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../Layout /Layout";
+import Layout from "../Layout/Layout";
 import Heading from "./Heading";
 import { LuWalletCards } from "react-icons/lu";
 import { LuUsers } from "react-icons/lu";
