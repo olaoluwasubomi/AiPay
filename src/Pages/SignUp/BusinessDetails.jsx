@@ -1,74 +1,53 @@
-import React, {useState} from "react";
+// BusinessDetails.jsx
+import React, { useState } from "react";
 import Layout from "./Layout";
 import FormComponent from "../Login/FormComponent";
 import Backbutton from "../Login/Backbutton";
-import { Link } from "react-router-dom";
-const BusinessDetails = () =>{
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const BusinessFields = [
-        {label:"Business name",placeholder:"Enter Business name", type:"text"},
-        {label:"Industry", placeholder:"Select Industry", type:"select"},
-        {label:"About Business",placeholder:"Describe your business", type:"textarea"}
-    ];
+import { Link, useNavigate } from "react-router-dom";
+import { post } from "@/lib/api";
 
-    const handleContinueClick = () =>{
-        setIsModalVisible(true);
-    };
+const BusinessDetails = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigate();
 
-    const handleCancelClick = () =>{
-        setIsModalVisible(false);
-    }
-    return(
+  const BusinessFields = [
+    { label: "Business name", placeholder: "Enter Business name", type: "text", name: "name" },
+    { label: "Industry", placeholder: "Select Industry", type: "select", name: "industry" },
+    { label: "About Business", placeholder: "Describe your business", type: "textarea", name: "about" },
+  ];
+
+  async function handleBusiness(form) {
+    const token = localStorage.getItem("aipay_access");
+    await post("/user/business", { name: form.name, industry: form.industry, about: form.about }, token);
+    setIsModalVisible(true);
+  }
+
+  return (
+    <div>
+      <Layout>
         <div>
-            <Layout >
-            <div>
-                <Backbutton />
-                <p className="text-end">Already have an account? <Link to="/">Sign In</Link></p>
-            </div>
-            <FormComponent 
-                heading="Sign Up"
-                text="Provide your business details"
-                fields={BusinessFields}
-            />
-            <Link className="loginbg p-3 2xl:w-2/3 xl:w-2/3 lg:w-2/3 md:w-full sm:w-full rounded-xl text-white font-bold text-lg block text-center mt-10" onClick={handleContinueClick}>Continue</Link>
-            </Layout>
-
-
-
-            {isModalVisible && (
-            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                <div className="bg-white p-10 2xl:w-1/3 xl:w-1/3 lg:w-1/3 md:w-2/3 sm:w-full shadow-lg relative rounded-xl">
-                    {/* Cancel (X) button */}
-                    <button
-                        className="absolute top-3 right-3 text-black text-xl font-bold rounded-full border-2 p-2 px-3 border-black"
-                        onClick={handleCancelClick}
-                        >
-                        &#x2715; {/* Unicode character for "X" */}
-                    </button>
-
-                    <h2 className="text-3xl text-center text-textcolor font-bold mb-4 mt-10">Terms & Conditions</h2>
-                    <p className="text-center text-custom-gray font-medium text-sm">Please carefully read through our terms of agreement before you proceed</p>
-                    <p className="my-5 text-center leading-6">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    <span className="block mt-5">
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi.
-                    </span>
-                    <span className="block mt-5">
-                    Tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum.
-                    </span>
-                    </p>
-                    <button className="mx-auto block bg-agree text-custom-gray py-4 text-center rounded-xl 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full font-bold">
-                    I agree with the terms and conditions
-                    </button>
-                    {/* <button className="block 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold">
-                    Proceed
-                    </button> */}
-                    <Link className="block 2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-full sm:w-full loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="/Login">Proceed</Link>
-                    {/* Remove the existing Cancel button in the footer */}
-                </div>
-            </div>
-            )}
+          <Backbutton />
+          <p className="text-end">Already have an account? <Link to="/Login">Sign In</Link></p>
         </div>
-    )
-}
+
+        <FormComponent
+          heading="Sign Up"
+          text="Provide your business details"
+          fields={BusinessFields}
+          submitText="Continue"
+          onSubmit={(f) => handleBusiness(f).catch((e) => alert(e.message))}
+        />
+      </Layout>
+
+      {isModalVisible && (
+        <div className="fixed inset-0 ...">
+          {/* your modal content */}
+          <Link className="block ... loginbg ..." to="/Login" onClick={() => setIsModalVisible(false)}>
+            Proceed
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
 export default BusinessDetails;

@@ -1,5 +1,6 @@
+// routes/AppRoutes.jsx
 import React from "react";
-import { Routes , Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login/Login";
 import ForgotPassword from "../Pages/Login/ForgotPassword";
 import EmailVerification from "../Pages/Login/EmailVerification";
@@ -11,29 +12,36 @@ import Index from "../Pages/LandingPage/Index";
 import ProfileForm from "../Pages/Profilesetup/ProfileForm";
 import Profile from "../Pages/Profilesetup/Profile";
 import ProfileDashboard from "../Pages/Profilesetup/ProfileDashboard";
-import AccountReview from "../Pages/Profilesetup/AccountReview"
+import AccountReview from "../Pages/Profilesetup/AccountReview";
 import DashboardEmpty from "../Pages/Dashboard/DashboardEmpty";
 import DashboardLive from "../Pages/Dashboard/DashboardLive";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import ProductSales from "../Pages/Buyer/ProductSales";
+import Cart from "../Pages/Buyer/Cart";
+import ProductDetails from "../Pages/Buyer/ProductDetails";
 
-const AppRoutes = () =>{
-    return(
-        <Routes>
-            <Route name="Index" path="/" element={<Index />} />
-            <Route name="Password" path="/ForgotPassword" element={<ForgotPassword />} />
-            <Route name="EmailVerification" path="/EmailVerification" element={<EmailVerification />} />
-            <Route name="PasswordReset" path="/PasswordReset" element={<PasswordReset />} />
-            <Route name="SignUp" path="/SignUp" element={<SignUp />} />
-            <Route name="Form" path="/Form" element={<Form />} />
-            <Route name="BusinessDetails" path="/BusinessDetails" element={<BusinessDetails />} />
-            <Route name="Login" path="/Login" element={<Login />} />
-            <Route name="Profile" path="/Profile" element={<Profile />} />
-            <Route name="ProfileDashboard" path="/ProfileDashboard" element={<ProfileDashboard />} />
-            <Route name="AccountReview" path="/AccountReview" element={<AccountReview />} />
-            <Route name="DashboardEmpty" path="/DashboardEmpty" element={<DashboardEmpty/>} />
-            <Route name="DashboardLive" path="/DashboardLive" element={<DashboardLive />} />
-            <Route name="dashboard" path="/dashboard" element={<Dashboard />} />
-        </Routes>
-    )
-}
+
+const AppRoutes = () => (
+  <Routes>
+    <Route path="/" element={<Index />} />
+    <Route path="/ForgotPassword" element={<ForgotPassword />} />
+    <Route path="/EmailVerification" element={<EmailVerification />} />
+    <Route path="/PasswordReset" element={<PasswordReset />} />
+    <Route path="/SignUp" element={<SignUp />} />
+    <Route path="/Form" element={<Form />} />
+    <Route path="/BusinessDetails" element={<BusinessDetails />} />
+    <Route path="/Login" element={<Login />} />
+    <Route path="/Profile" element={<Profile />} />
+    <Route path="/ProfileDashboard" element={<ProfileDashboard />} />
+    <Route path="/AccountReview" element={<AccountReview />} />
+    <Route path="/DashboardEmpty" element={<DashboardEmpty />} />
+    <Route path="/DashboardLive" element={<DashboardLive />} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/Buyer/ProductSales" element={<ProductSales />} />
+    <Route path="/buyer/Cart" element={<Cart />} />
+    <Route path="/buyer/ProductDetails" element={<ProductDetails />} />
+
+  </Routes>
+);
+
 export default AppRoutes;

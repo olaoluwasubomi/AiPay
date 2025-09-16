@@ -1,20 +1,20 @@
-import React from "react";
+// App.jsx
+import React, { useEffect } from "react";
 import AppRoutes from "./routes/AppRoutes";
-import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { BrowserRouter } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-// import AppRoutes from '../src/routes/AppRoutes';
-// import Login from "./Pages/Login/Login";
-const App = () =>{
-  AOS.init();
-  return(
-    // <div>
-    //   <AppRoutes />
-    // </div>
+const App = () => {
+  useEffect(() => {
+    AOS.init({ duration: 600, once: true });
+  }, []);
+
+  return (
     <BrowserRouter>
-        <AppRoutes />
+      <AppRoutes />
     </BrowserRouter>
-  )
-}
+  );
+};
+
 export default App;
