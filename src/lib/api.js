@@ -1,5 +1,5 @@
 // src/lib/api.js
-export const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+export const API = import.meta.env.VITE_API_URL || "https://ai-pay-server-test.onrender.com";
 
 const ACCESS_KEY = "aipay_access";
 const REFRESH_KEY = "aipay_refresh";
