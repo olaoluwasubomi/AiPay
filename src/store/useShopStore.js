@@ -74,11 +74,5 @@ export const useShopStore = create(
   )
 );
 
-// Helper
-export const formatNGN = (n) => {
-  try {
-    return new Intl.NumberFormat("en-NG").format(n);
-  } catch {
-    return n;
-  }
-};
+
+

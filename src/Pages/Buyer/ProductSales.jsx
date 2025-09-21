@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { useShopStore, formatNGN } from "@/store/useShopStore";
+import { useShopStore } from "@/store/useShopStore";
+import { formatNGN } from "@/utils/format";
 
 // --- Mock data (swap with API later)
 const CATEGORIES = [
@@ -226,11 +227,4 @@ function GenericCircle({ className = "" }) {
   return <svg viewBox="0 0 24 24" className={className} fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>;
 }
 
-// --- utils
-function formatNGN(amount) {
-  try {
-    return new Intl.NumberFormat("en-NG").format(amount);
-  } catch {
-    return amount;
-  }
-}
+

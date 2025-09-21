@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { formatNGN } from "@/utils/format";
 
 /**
  * Product Details modal/page for Buyer flow
@@ -174,9 +175,4 @@ function TrashIcon({ className = "" }) {
       <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
-}
-
-// utils
-function formatNGN(n) {
-  try { return new Intl.NumberFormat("en-NG").format(n); } catch { return n; }
 }

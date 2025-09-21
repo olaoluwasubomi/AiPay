@@ -1,5 +1,6 @@
 
 import React, { useEffect } from "react";
+import { formatNGN } from "@/utils/format";
 
 /**
  * Buyer Cart Modal & Page
@@ -228,11 +229,3 @@ function ArrowUpRightIcon({ className = "" }) {
   );
 }
 
-// --------- utils ---------
-function formatNGN(n) {
-  try {
-    return new Intl.NumberFormat("en-NG").format(n);
-  } catch {
-    return n;
-  }
-}
