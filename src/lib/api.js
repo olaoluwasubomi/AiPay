@@ -110,3 +110,16 @@ export async function apiDelete(path, token) {
 }
 
 export { apiPost as post };
+
+// --- multipart upload (keeps boundary correct) ---
+export async function apiUpload(path, formData, token) {
+  const headers = {};
+  const t = token || getStoredTokens().accessToken;
+  if (t) headers.Authorization = `Bearer ${t}`;
+  const res = await rawFetch(path, {
+    method: "POST",
+    headers,           // <-- do NOT set Content-Type here
+    body: formData,
+  });
+  return jsonOrThrow(res);
+}

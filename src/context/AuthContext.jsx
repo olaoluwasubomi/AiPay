@@ -1,5 +1,5 @@
 // src/context/AuthContext.jsx
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { apiGet, apiPost, setAuthTokens, clearAuthTokens, getStoredTokens } from "@/lib/api";
 
 const AuthContext = createContext(null);
@@ -8,9 +8,13 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [booting, setBooting] = useState(true);
 
+  // in-flight guards
+  const registerInFlight = useRef(false);
+  const loginInFlight = useRef(false);
+
   const fetchMe = useCallback(async () => {
     try {
-      const me = await apiGet("/auth/me"); // requires GET /auth/me on backend
+      const me = await apiGet("/auth/me");
       setUser(me);
       return me;
     } catch {
@@ -20,17 +24,29 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = useCallback(async ({ email, password }) => {
-    const data = await apiPost("/auth/login", { email, password });
-    setAuthTokens(data.accessToken, data.refreshToken);
-    setUser(data.user);
-    return data.user;
+    if (loginInFlight.current) return { ok: false, reason: "in_flight" };
+    loginInFlight.current = true;
+    try {
+      const data = await apiPost("/auth/login", { email, password });
+      setAuthTokens(data.accessToken, data.refreshToken);
+      setUser(data.user);
+      return { ok: true, user: data.user };
+    } finally {
+      loginInFlight.current = false;
+    }
   }, []);
 
   const register = useCallback(async (payload) => {
-    const data = await apiPost("/auth/register", payload);
-    setAuthTokens(data.accessToken, data.refreshToken);
-    setUser(data.user);
-    return data.user;
+    if (registerInFlight.current) return { ok: false, reason: "in_flight" };
+    registerInFlight.current = true;
+    try {
+      const data = await apiPost("/auth/register", payload);
+      setAuthTokens(data.accessToken, data.refreshToken);
+      setUser(data.user);
+      return { ok: true, user: data.user };
+    } finally {
+      registerInFlight.current = false;
+    }
   }, []);
 
   const logout = useCallback(async () => {
@@ -41,21 +57,23 @@ export function AuthProvider({ children }) {
     setUser(null);
   }, []);
 
-  // Bootstrap: if tokens exist, hydrate user
   useEffect(() => {
     (async () => {
       const { accessToken } = getStoredTokens();
-      if (accessToken) {
-        await fetchMe().catch(() => setUser(null));
-      }
+      if (accessToken) await fetchMe();
       setBooting(false);
     })();
   }, [fetchMe]);
 
-  const value = { user, booting, login, register, logout, fetchMe, setUser };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, booting, login, register, logout, fetchMe, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used within <AuthProvider>");
+  return ctx;
 }
