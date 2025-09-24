@@ -1,3 +1,4 @@
+// src/pages/Profile.jsx
 import React, { useState, useEffect } from "react";
 import Nav from "../Profilesetup/Nav";
 import ProfileForm from "../Profilesetup/ProfileForm";
@@ -5,6 +6,10 @@ import Backbutton from "../Login/Backbutton";
 import { Link, useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import useProfileSetup from "../profileSetup/useProfileSetup";
+import { useAuth } from "@/context/AuthContext";
+
+const UNDER_REVIEW_ROUTE = "/ProfileDashboard";
+const MERCHANT_DASHBOARD_ROUTE = "/DashboardEmpty"; // dashboard where merchant can add a product
 
 const Profile = () => {
   const [savebutton, setsavebutton] = useState(false);
@@ -14,6 +19,7 @@ const Profile = () => {
 
   const [countdown, setCountdown] = useState(5);
   const navigate = useNavigate();
+  const { fetchMe } = useAuth(); // refresh role after approval
 
   const {
     loading, profile, status, bankInfo, logoUploading,
@@ -22,57 +28,100 @@ const Profile = () => {
     reloadStatus, submitNow,
   } = useProfileSetup();
 
-  // Save -> open payment modal if unpaid; else submit & go to Under Review
+  // Immediate guard: if already approved, don't allow staying on this page.
+  useEffect(() => {
+    if (status?.review?.state === "approved") {
+      // Refresh user (to pick up role=merchant) and move to merchant dashboard
+      Promise.resolve(fetchMe?.())
+        .finally(() => navigate(MERCHANT_DASHBOARD_ROUTE, { replace: true }));
+    }
+  }, [status?.review?.state, navigate, fetchMe]);
+
+  // Save -> unpaid opens payment modal; paid -> submit and go Under Review;
+  // if already approved, jump to merchant dashboard.
   const handleSaveButton = async () => {
-    await saveProfileNow();
-    const s = await reloadStatus();
-    if (!s?.payment?.paid) {
-      setsavebutton(true);             // show "Pay for Account Organisation Review" modal
-    } else {
-      await submitNow();               
-      navigate("/ProfileDashboard");   
+    try {
+      await saveProfileNow();
+      const s = await reloadStatus();
+
+      if (s?.review?.state === "approved") {
+        await Promise.resolve(fetchMe?.());
+        navigate(MERCHANT_DASHBOARD_ROUTE, { replace: true });
+        return;
+      }
+
+      if (!s?.payment?.paid) {
+        setsavebutton(true); // payment modal
+      } else {
+        await submitNow();
+        navigate(UNDER_REVIEW_ROUTE, { replace: true });
+      }
+    } catch (e) {
+      console.error(e);
+      alert(e?.message || "Failed to save profile");
     }
   };
 
-  const handleCancelClick = () => {
-    setsavebutton(false);
-    setconfirmbtn(false);
-  };
+  const handleCancelClick = () => { setsavebutton(false); setconfirmbtn(false); };
 
   const handleProceedbtn = async () => {
-    setsavebutton(false);
-    await startManualPayment();
-    setproceedbtn(true);
-  };
-  const handleconfirmbtn = () => {
-    setconfirmbtn(true);
-    setproceedbtn(false);
+    try {
+      setsavebutton(false);
+      await startManualPayment();
+      setproceedbtn(true);
+    } catch (e) {
+      console.error(e);
+      alert(e?.message || "Failed to initiate payment");
+    }
   };
 
+  const handleconfirmbtn = () => { setconfirmbtn(true); setproceedbtn(false); };
+
+  // Confirm payment -> show loader + poll for status updates
   const handlesuccess = async () => {
-    const payerAccountName = document.querySelector("input[placeholder='Enter name of account used']")?.value || "";
-    const bank = document.querySelector("input[placeholder='Enter the bank name']")?.value || "";
-    const amount = Number(
-      document.querySelector("input[placeholder='Enter amount paid']")?.value ||
-      status?.payment?.amount || 0
-    );
-
-    await confirmManual({ payerAccountName, bank, amount });
-    setsuccess(true);
-    setconfirmbtn(false);
-    pollStatus(5000);
+    try {
+      const payerAccountName = document.querySelector("input[placeholder='Enter name of account used']")?.value || "";
+      const bank             = document.querySelector("input[placeholder='Enter the bank name']")?.value || "";
+      const amount           = Number(
+        document.querySelector("input[placeholder='Enter amount paid']")?.value ||
+        status?.payment?.amount || 0
+      );
+      await confirmManual({ payerAccountName, bank, amount });
+      setsuccess(true);
+      setconfirmbtn(false);
+      pollStatus(4000);
+    } catch (e) {
+      console.error(e);
+      alert(e?.message || "Failed to confirm transfer");
+    }
   };
 
+  // While loader is up, route as soon as the status changes
+  useEffect(() => {
+    if (!success) return;
+    if (status?.review?.state === "approved") {
+      setsuccess(false);
+      Promise.resolve(fetchMe?.()).finally(() => navigate(MERCHANT_DASHBOARD_ROUTE, { replace: true }));
+    } else if (status?.review?.state === "under_review" || status?.review?.state === "submitted") {
+      setsuccess(false);
+      navigate(UNDER_REVIEW_ROUTE, { replace: true });
+    }
+  }, [success, status?.review?.state, navigate, fetchMe]);
+
+  // Fallback redirect after 5s if loader stays up (e.g., slow webhook)
   useEffect(() => {
     let timer, redirectTimeout;
     if (success) {
       timer = setInterval(() => setCountdown((c) => c - 1), 1000);
-      redirectTimeout = setTimeout(() => navigate("/ProfileDashboard"), 5000);
+      redirectTimeout = setTimeout(() => navigate(UNDER_REVIEW_ROUTE, { replace: true }), 5000);
     }
     return () => { clearInterval(timer); clearTimeout(redirectTimeout); };
   }, [navigate, success]);
 
-  const onLogoPicked = async (file) => { await uploadLogoFile(file); };
+  const onLogoPicked = async (file) => {
+    try { await uploadLogoFile(file); }
+    catch (e) { console.error(e); alert(e?.message || "Logo upload failed"); }
+  };
 
   return (
     <div>
@@ -90,7 +139,7 @@ const Profile = () => {
             <ProfileForm profile={profile} onChange={updateField} />
           </div>
 
-          {/* Logo box */}
+          {/* Logo */}
           <div className="2xl:w-1/5 xl:w-1/5 lg:w-1/5 md:w-full sm:w-full bg-white shadow-lg mt-11 2xl:ml-7 xl:ml-7 lg:ml-7 md:ml-0 sm:ml-0 px-5 pt-5 pb-80 rounded-xl relative">
             <h3 className="uppercase text-formheadcolor font-bold">Logo</h3>
 
@@ -134,7 +183,7 @@ const Profile = () => {
 
       <div className="flex items-center justify-end w-full 2xl:px-44 xl:px-44 lg:px-20 md:px-10 sm:px-5 pb-16">
         <button className="w-52 block py-5 rounded-xl border border-textcolor text-textcolor">Cancel</button>
-        <button className="w-52 block py-5 ml-5 rounded-xl bg-textcolor text-white" onClick={handleSaveButton} disabled={loading}>
+        <button className="w-52 block py-5 ml-5 rounded-xl bg-textcolor text-white" onClick={handleSaveButton} disabled={loading || logoUploading}>
           {loading ? "Saving..." : "Save"}
         </button>
       </div>
@@ -149,9 +198,13 @@ const Profile = () => {
             <p className="text-justify text-xl text-profiletext mt-5">...</p>
             <p className="mt-10 text-lg font-bold text-fontcolor text-center">
               You will be required to pay a sum of
-              <span className="block uppercase text-3xl mt-3 text-textcolor">NGN {status?.payment?.amount ?? 10000}</span>
+              <span className="block uppercase text-3xl mt-3 text-textcolor">
+                NGN {status?.payment?.amount ?? 10000}
+              </span>
             </p>
-            <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="" onClick={handleProceedbtn}>Proceed</Link>
+            <Link className="block w-4/5 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="" onClick={handleProceedbtn}>
+              Proceed
+            </Link>
           </div>
         </div>
       )}

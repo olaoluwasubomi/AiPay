@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
 
   const fetchMe = useCallback(async () => {
     try {
-      const me = await apiGet("/auth/me");
+      const me = await apiGet("/user/me");
       setUser(me);
       return me;
     } catch {
