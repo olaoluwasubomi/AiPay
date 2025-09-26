@@ -83,7 +83,6 @@ async function safeParse(res) {
 }
 
 function pickMessage(data, status) {
-  // Try common server shapes (Joi, express, custom)
   return (
     data?.message ||
     data?.msg ||
@@ -132,7 +131,7 @@ function withAuthHeaders(token) {
 }
 
 /* ======================
- * Throwing helpers (existing)
+ * Throwing helpers
  * ====================== */
 export async function apiPost(path, body = {}, token) {
   const res = await rawFetch(path, {
@@ -152,6 +151,14 @@ export async function apiGet(path, token) {
 export async function apiPut(path, body = {}, token) {
   const res = await rawFetch(path, {
     method: "PUT",
+    headers: withAuthHeaders(token),
+    body: JSON.stringify(body),
+  });
+  return jsonOrThrow(res);
+}
+export async function apiPatch(path, body = {}, token) {
+  const res = await rawFetch(path, {
+    method: "PATCH",
     headers: withAuthHeaders(token),
     body: JSON.stringify(body),
   });
@@ -179,7 +186,7 @@ export async function apiUpload(path, formData, token) {
 }
 
 /* ======================
- * Safe result helpers (NEW)
+ * Safe result helpers
  * ====================== */
 export async function postR(path, body = {}, token) {
   const res = await rawFetch(path, {
@@ -199,6 +206,14 @@ export async function getR(path, token) {
 export async function putR(path, body = {}, token) {
   const res = await rawFetch(path, {
     method: "PUT",
+    headers: withAuthHeaders(token),
+    body: JSON.stringify(body),
+  });
+  return jsonOrResult(res);
+}
+export async function patchR(path, body = {}, token) {
+  const res = await rawFetch(path, {
+    method: "PATCH",
     headers: withAuthHeaders(token),
     body: JSON.stringify(body),
   });

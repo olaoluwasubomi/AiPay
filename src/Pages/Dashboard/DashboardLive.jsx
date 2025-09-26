@@ -1,39 +1,23 @@
+// src/pages/DashboardLive.jsx
 import React from "react";
-import Navigation from "../Dashboard/Navigation"
+import Layout from "../Layout/Layout";
 import Heading from "./Heading";
 import { Link } from "react-router-dom";
-import Layout from "../Layout/Layout";
-const DashboardLive = () =>{
-    return(
 
-        <Layout>
-            <Heading
-                header="Welcome Ade"
-                text="Look at what is happening with your business"
-             />
-             <div className="w-11/12 mx-auto my-10 mb-12 py-48 bg-white">
-                <img src="/images/empty_state 1.png" className="w-1/6 mx-auto" />
-                <h4 className="mx-auto text-center font-bold text-2xl">You are now live</h4>
-                <p className="mx-auto text-center w-1/4 mt-1 text-sm">Hello Ade, you are now live. Go on to upload your goods to store.</p>
-                <Link className="block w-1/6 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="">Add Product</Link>
-             </div>
-        </Layout>
-        // <div className="h-screen bg-bankbg flex justify-between items-start">
-        //     <Navigation />
-        //     {/* Body Context */}
-        //     <div className="w-4/5">
-        //     <Heading
-        //         header="Welcome Ade"
-        //         text="Look at what is happening with your business"
-        //      />
-        //      <div className="w-11/12 mx-auto my-10 mb-12 py-48 bg-white">
-        //         <img src="/images/empty_state 1.png" className="w-1/6 mx-auto" />
-        //         <h4 className="mx-auto text-center font-bold text-2xl">You are now live</h4>
-        //         <p className="mx-auto text-center w-1/4 mt-1 text-sm">Hello Ade, you are now live. Go on to upload your goods to store.</p>
-        //         <Link className="block w-1/6 loginbg py-4 text-center text-white rounded-xl mt-5 mx-auto font-bold" to="">Add Product</Link>
-        //      </div>
-        //     </div>
-        // </div>
-    )
+export default function DashboardLive() {
+  return (
+    <Layout>
+      <Heading header="You are now live" text="Time to upload your products" />
+      <div className="w-11/12 mx-auto my-10 mb-12 py-20 bg-white rounded-xl shadow">
+        <img src="/images/empty_state 1.png" className="w-28 mx-auto" alt="" />
+        <h4 className="mx-auto text-center font-bold text-2xl mt-4">You are now live</h4>
+        <p className="mx-auto text-center md:w-1/2 mt-2 text-sm">
+          Go on to upload your goods to your store.
+        </p>
+        <Link to="/products/new" className="block md:w-1/6 w-1/2 mx-auto mt-5 text-center loginbg py-3 text-white rounded-xl font-bold">
+          Add Product
+        </Link>
+      </div>
+    </Layout>
+  );
 }
-export default DashboardLive;

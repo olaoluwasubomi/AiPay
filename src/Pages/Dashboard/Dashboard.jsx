@@ -1,322 +1,119 @@
+// src/pages/Dashboard.jsx
 import React from "react";
 import Layout from "../Layout/Layout";
 import Heading from "./Heading";
-import { LuWalletCards } from "react-icons/lu";
-import { LuUsers } from "react-icons/lu";
-import { orderData } from "./orderData";
-import { orderData2 } from "./orderData";
-import { order3 } from "./orderData";
-import { order4 } from "./orderData";
-// import { orderData } from "./orderData";
-const Dashboard = () =>{
-    const orderInfo = orderData.map((item,i) => {
-        return(
-            <div key={i}>
-                <div>
-                    <div className="flex items-center justify-between w-full">
-                        <h3>{item.heading}</h3>
-                        <a href="#">{item.button}</a>
-                    </div>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>    
-                                </div>
-                            </div>
+import { LuWalletCards, LuUsers } from "react-icons/lu";
+import useMerchantDashboard from "@/hooks/useMerchantDashboard";
+import { useAuth } from "@/context/AuthContext";
 
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
+const currency = new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 });
 
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
+const StatCard = ({ icon, title, value, pct, delta }) => (
+  <div className="bg-white w-[49%] mt-10 flex items-start px-5 py-5 justify-between flex-col rounded-xl shadow-xl">
+    <div className="flex items-center justify-start w-full">
+      <div className="p-3 bg-iconcolor rounded-full text-textcolor">{icon}</div>
+      <div className="px-8">
+        <p className="text-lg font-bold">{title}</p>
+        <h3 className="text-2xl font-bold">{value}</h3>
+      </div>
+    </div>
+    <div className="flex items-center justify-start w-full mt-4 text-sm">
+      <p className="font-bold">{pct.toFixed(2)}%</p>
+      <p className="px-8 font-bold">{delta > 0 ? `+${delta}` : delta} this month</p>
+    </div>
+  </div>
+);
 
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                </div>
+const OrderList = ({ heading, buttonText = "See more", items = [] }) => (
+  <div className="bg-white rounded-xl shadow-xl w-[49%] py-5 px-5 mt-10">
+    <div className="flex items-center justify-between w-full mb-3">
+      <h3 className="font-semibold">{heading}</h3>
+      <a href="#" className="text-blue-600 hover:underline">{buttonText}</a>
+    </div>
+    <ul className="space-y-3">
+      {items.length === 0 && <li className="text-sm text-gray-500">No orders yet</li>}
+      {items.map((o) => (
+        <li key={o._id || `${o.orderId}_${o.createdAt}`} className="list-none">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-start">
+              <img src={o.icon || "/images/Group 57 (2).png"} alt="" className="w-8 h-8 object-contain" />
+              <div className="px-3">
+                <h4 className="font-semibold">{o.name || o.productName || "Order"}</h4>
+                <p className="text-xs text-gray-500">OrderId: {o.orderId || o._id}</p>
+              </div>
             </div>
-        )
-    })
-
-
-    const orderInfo2 = orderData2.map((item,i) => {
-        return(
-            <div key={i}>
-                <div>
-                    <div className="flex items-center justify-between w-full">
-                        <h3>{item.heading}</h3>
-                        <a href="#">{item.button}</a>
-                    </div>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                </div>
+            <div>
+              <h4 className="font-semibold">{currency.format(o.amount || 0)}</h4>
             </div>
-        )
-    })
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
+export default function Dashboard() {
+  const { user } = useAuth();
+  const { loading, error, stats, orders, refresh } = useMerchantDashboard({ pollMs: 30000 });
 
-    const orderInfo3 = order3.map((item,i) => {
-        return(
-            <div key={i}>
-                <div>
-                    <div className="flex items-center justify-between w-full">
-                        <h3>{item.heading}</h3>
-                        <a href="#">{item.button}</a>
-                    </div>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
+  return (
+    <Layout>
+      <Heading header={`Welcome ${user?.firstName || ""}`} text="Look at what is happening with your business" />
 
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
+      <div className="flex items-start justify-between w-full px-5 mt-5">
+        {/* Left column */}
+        <div className="flex items-center justify-between w-[49%] flex-wrap">
+          {/* Stats */}
+          <StatCard
+            icon={<LuWalletCards className="text-2xl" />}
+            title="Total Balance"
+            value={currency.format(stats.totalBalance)}
+            pct={stats.balancePct}
+            delta={stats.balanceDelta}
+          />
+          <StatCard
+            icon={<LuUsers className="text-2xl" />}
+            title="Total Visitors"
+            value={(stats.totalVisitors || 0).toLocaleString()}
+            pct={stats.visitorsPct}
+            delta={stats.visitorsDelta}
+          />
 
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
+          {/* Orders */}
+          <OrderList heading="Orders Ready"      items={orders.ready} />
+          <OrderList heading="Order Processing"  items={orders.processing} />
+          <OrderList heading="Ready to Ship"     items={orders.ready_to_ship} />
+          <OrderList heading="Orders Shipped"    items={orders.shipped} />
 
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                </div>
+          {/* Fallback panel / dev block */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded w-full mt-10">
+              <p className="font-semibold">Failed to load dashboard</p>
+              <p className="text-sm mt-1">{error}</p>
+              <button onClick={refresh} className="mt-3 px-3 py-1 rounded bg-red-600 text-white">Retry</button>
             </div>
-        )
-    })
+          )}
+        </div>
 
-    const orderInfo4 = order4.map((item,i) => {
-        return(
-            <div key={i}>
-                <div>
-                    <div className="flex items-center justify-between w-full">
-                        <h3>{item.heading}</h3>
-                        <a href="#">{item.button}</a>
-                    </div>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
+        {/* Right column placeholders (graphs area) */}
+        <div className="flex items-center justify-between flex-col w-[49%]">
+          <div className="bg-white p-6 h-52 w-full mt-10 rounded-xl shadow-xl">
+            <p className="text-sm text-gray-500">Traffic chart placeholder</p>
+          </div>
+          <div className="bg-white p-6 h-52 w-full mt-10 rounded-xl shadow-xl">
+            <p className="text-sm text-gray-500">Sales chart placeholder</p>
+          </div>
+          <div className="bg-white p-6 h-52 w-full mt-10 rounded-xl shadow-xl">
+            <p className="text-sm text-gray-500">Conversion chart placeholder</p>
+          </div>
+        </div>
+      </div>
 
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li className="list-none">
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center justify-start">
-                                <img src={item.icon} />
-                                <div className="px-3">
-                                    <h4>{item.name}</h4>
-                                    <p>OrderId:{item.orderId}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>NGN {item.amount}</h4>
-                            </div>
-
-                        </div>
-                    </li>
-                </div>
-            </div>
-        )
-    })
-    return(
-        <Layout>
-            <Heading
-                header="Welcome Ade"
-                text="Look at what is happening with your business"
-             />
-             {/* Main Container Section */}
-             <div className="flex items-start justify-between w-full px-5 mt-5">
-
-
-
-                {/* Statistics Container */}
-                <div className="flex items-center justify-between w-[49%]  flex-wrap">
-                    <div className="bg-white w-[49%] mt-10 flex items-start px-5 py-5 justify-between flex-col rounded-xl shadow-xl">
-                        <div className="flex items-center justify-start w-full">
-                            <div className="p-3 bg-iconcolor rounded-full text-textcolor"><LuWalletCards className="text-2xl roundeed-xl" /></div>
-                            <div className="px-8">
-                                <p className="text-lg font-bold">Total Balance</p>
-                                <h3 className="text-2xl font-bold">NGN 540,000</h3>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-start w-full mt-4">
-                            <p className="font-bold">20.02%</p>
-                            <p className="px-8 font-bold text-base">+5K this month</p>
-                        </div>
-                    </div>
-                    <div className="bg-white w-[49%] mt-10 flex items-start px-5 py-5 justify-between flex-col rounded-xl shadow-xl">
-                        <div className="flex items-center justify-start w-full">
-                            <div className="p-3 bg-iconcolor rounded-full text-textcolor"><LuUsers className="text-2xl roundeed-xl"/></div>
-                            <div className="px-8">
-                                <p className="text-lg font-bold">Total Visitors</p>
-                                <h3 className="text-2xl font-bold">NGN 540,000</h3>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-start w-full mt-4">
-                            <p className="font-bold">20.02%</p>
-                            <p className="px-8 font-bold text-base">+5K this month</p>
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl shadow-xl w-[49%] py-5 px-5 mt-10">{orderInfo}</div>
-                    <div className="bg-white rounded-xl shadow-xl px-5 py-5 w-[49%] mt-10">{orderInfo3}</div>
-                    <div className="bg-white rounded-xl shadow-xl py-5 px-5 w-[49%] mt-10">{orderInfo2}</div>
-                    <div className="bg-white rounded-xl shadow-xl py-5 px-5 w-[49%] mt-10">{orderInfo4}</div>
-                    <div className="bg-red-400 p-20 h-52 w-full mt-10"></div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-                {/* Graphical Container */}
-                <div className="flex items-center justify-between bg-blue-500  flex-col w-[49%]">
-                    <div className="bg-yellow-400 p-56 h-52 w-full mt-10"></div>
-                    <div className="bg-yellow-400 p-20 h-52 w-full mt-10"></div>
-                    <div className="bg-yellow-400 p-20 h-52 w-full mt-10"></div>
-                </div>
-             </div>
-        </Layout>
-    )
+      {loading && (
+        <div className="fixed inset-0 bg-black/10 flex items-center justify-center">
+          <div className="animate-spin h-10 w-10 border-4 border-gray-200 border-t-blue-600 rounded-full" />
+        </div>
+      )}
+    </Layout>
+  );
 }
-export default Dashboard;

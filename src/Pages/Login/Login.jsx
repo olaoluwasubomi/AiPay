@@ -1,10 +1,9 @@
-// src/pages/Login.jsx
 import React from "react";
 import FormComponent from "./FormComponent";
 import BackgroundImage from "./BackgroundImage";
 import { IoEye } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import { post, apiGet } from "@/lib/api"; // <-- add apiGet
+import { post, apiGet } from "@/lib/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,11 +17,11 @@ const Login = () => {
     try {
       const data = await post("/auth/login", { email: form.email, password: form.password });
 
-      // store tokens so subsequent calls include Authorization
+      // persist tokens
       localStorage.setItem("aipay_access", data.accessToken);
       localStorage.setItem("aipay_refresh", data.refreshToken);
 
-      // fetch user + account status to decide where to go
+      // get user + account status to decide destination
       const [me, status] = await Promise.all([
         apiGet("/user/me"),
         apiGet("/user/me/account-status"),
@@ -33,17 +32,19 @@ const Login = () => {
         return;
       }
 
+      // Approved or already merchant => dashboard gate (it will show live)
       if (me?.role === "merchant" || status?.review?.state === "approved") {
-        navigate("/DashboardEmpty", { replace: true }); // merchant dashboard / add product
+        navigate("/dashboard", { replace: true });
         return;
       }
 
+      // Under review => dashboard gate (it will show the waiting shell)
       if (status?.review?.state === "submitted" || status?.review?.state === "under_review") {
-        navigate("/ProfileDashboard", { replace: true }); // under-review screen
+        navigate("/dashboard", { replace: true }); // ✅ unified gate
         return;
       }
 
-      // default: start/continue profile setup
+      // Otherwise continue profile setup
       navigate("/Profile", { replace: true });
     } catch (e) {
       console.error(e);
@@ -56,10 +57,9 @@ const Login = () => {
       <div className="2xl:w-1/2 ...">
         <BackgroundImage />
       </div>
-
       <div className="2xl:w-1/2 ...">
         <p className="logocolor ...">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link to="/SignUp" className="...">Sign Up</Link>
         </p>
 

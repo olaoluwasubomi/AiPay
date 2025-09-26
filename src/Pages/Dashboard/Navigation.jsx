@@ -1,104 +1,84 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// src/Dashboard/Navigation.jsx
+import React, { useMemo } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { SlBasket } from "react-icons/sl";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline, IoLinkOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
-import { IoLinkOutline } from "react-icons/io5";
-const Navigation = () =>{
-    const [activeNav, setactiveNav] = useState(null);
-    const handleNavClick = (nav) => {
-        setactiveNav(nav);
-    };
-    return(
-        <div className="bg-white px-8 w-1/5 py-4 h-screen">
-            <div>
-                <button className="bg-profilelogobg px-10 py-3 text-white rounded-lg text-sm">Logo</button>
-                <div className="flex items-center justify-start w-full mt-4">
-                    <IoLinkOutline className="text-4xl"/>
-                    <Link className="text-base ml-1">www.johnsonventures@aipay.com</Link>
-                </div>
-            </div>
-            <nav className="mt-4">
-                <h3 className="uppercase text-2xl text-profiletext">Menu</h3>
-                <hr className="border opacity-20 mt-2" />
-            {/* Dashboard */}
-            <Link
-                className={`flex items-center justify-start py-2 px-0 mb-5 mt-5  text-white ${
-                    activeNav === "dashboard" ? "bg-blue-500" : "bg-transparent" 
-                    }`}
-                    onClick={() => handleNavClick("dashboard")}
-                    to='/dashboard'
-            >
-                <FiHome className={`text-2xl ${activeNav === "dashboard" ? "text-white" : "text-black"}`} />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "dashboard" ? "text-white" : "text-black"}`}>Dashboard</span>
-                
-            </Link>
+import { useAuth } from "@/context/AuthContext";
 
-            {/* Profile */}
-            <Link
-                className={`flex items-center justify-start py-2 px-0 mb-5  text-white ${
-                    activeNav === "sales" ? "bg-blue-500" : "bg-transparent"
-                    }`}
-                    onClick={() => handleNavClick("sales")}
-            >
-               <SlBasket className={`text-2xl ${activeNav === "sales" ? "text-white" : "text-black"}`}  />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "sales" ? "text-white" : "text-black"}`}>Sales</span>
-            </Link>
+const NavItem = ({ to, icon, label }) => {
+  const { pathname } = useLocation();
+  const active = pathname === to || (to !== "/dashboard" && pathname.startsWith(to));
+  return (
+    <Link
+      to={to}
+      className={`flex items-center justify-start py-2 mb-2 rounded-lg ${
+        active ? "bg-blue-600 text-white" : "text-black hover:bg-gray-50"
+      }`}
+    >
+      <span className={`text-2xl ml-2 ${active ? "text-white" : "text-black"}`}>{icon}</span>
+      <span className={`ml-2 text-lg ${active ? "text-white" : "text-black"}`}>{label}</span>
+    </Link>
+  );
+};
 
-            {/* Settings */}
-            <Link
-                className={`flex items-center justify-start py-2 px-0  mb-5 text-white ${
-                    activeNav === "products" ? "bg-blue-500" : "bg-transparent"
-                    }`}
-                    onClick={() => handleNavClick("products")}
-            >
-               <HiOutlineShoppingBag className={`text-2xl ${activeNav === "products" ? "text-white" : "text-black"}`}  />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "products" ? "text-white" : "text-black"}`}>Products</span>
-            </Link>
-            <h3 className="uppercase text-2xl text-profiletext">user</h3>
-            <hr className="border opacity-20 mt-2" />
-            <Link
-                className={`flex items-center justify-start py-2 px-0  mb-5 mt-5 text-white ${
-                    activeNav === "notifications" ? "bg-blue-500" : "bg-transparent"
-                    }`}
-                    onClick={() => handleNavClick("notifications")}
-            >
-               <IoMdNotificationsOutline className={`text-2xl ${activeNav === "notifications" ? "text-white" : "text-black"}`}  />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "notifications" ? "text-white" : "text-black"}`}>Notifications</span>
-            </Link>
-            <Link
-                className={`flex items-center justify-start py-2 px-0  mb-5 text-white ${
-                    activeNav === "profile" ? "bg-blue-500" : "bg-transparent"
-                    }`}
-                    onClick={() => handleNavClick("profile")}
-            >
-                <FaRegUser className={`text-2xl ${activeNav === "profile" ? "text-white" : "text-black"}`}   />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "profile" ? "text-white" : "text-black"}`}>Profile</span>
-            </Link>
-            <Link
-                className={`flex items-center justify-start py-2 px-0 ${
-                activeNav === "settings" ? "bg-blue-500 text-white" : "bg-transparent text-white"
-                }`}
-                onClick={() => handleNavClick("settings")}
-            >
-                <IoSettingsOutline className={`text-2xl ${activeNav === "settings" ? "text-white" : "text-black"}`} />
-                <span className={`block mt-1 ml-2 text-lg ${activeNav === "settings" ? "text-white" : "text-black"}`}>
-                Settings
-                </span>
-            </Link>
+export default function Navigation() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-            </nav>
+  const storeUrl = useMemo(() => {
+    const slug = (user?.business?.name || user?.username || user?.email || "")
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+    return slug ? `https://store.aipay.com/${slug}` : "";
+  }, [user]);
 
-            <div className="mt-20 bg-payment w-full px-10 pb-2">
-                <img src="/images/Ellipse 1.png" className="mx-auto w-1/3"/>
-                <p className="text-center mt-2">Ade Johnson</p>
-                <h4 className="text-center font-bold text-base">Johnson Ventures</h4>
-                <Link className="loginbg px-10 py-3 text-white rounded-lg text-sm mt-2 w-2/3 block mx-auto text-center">Log Out</Link>
-            </div>
-        </div>
-    )
+  const handleLogout = () => {
+    try { logout?.(); } finally { navigate("/Login"); }
+  };
+
+  return (
+    <aside className="bg-white px-6 w-1/5 py-4 min-h-screen border-r">
+      <div>
+        <button className="bg-profilelogobg px-6 py-2 text-white rounded-lg text-sm">Logo</button>
+        {storeUrl && (
+          <div className="flex items-center justify-start w-full mt-4">
+            <IoLinkOutline className="text-2xl" />
+            <a className="ml-2 text-sm text-blue-600 truncate max-w-[180px]" href={storeUrl} target="_blank" rel="noreferrer">
+              {storeUrl}
+            </a>
+          </div>
+        )}
+      </div>
+
+      <nav className="mt-5">
+        <h3 className="uppercase text-sm text-profiletext tracking-widest">Menu</h3>
+        <hr className="border opacity-20 mt-2" />
+
+        <NavItem to="/dashboard" icon={<FiHome />} label="Dashboard" />
+        <NavItem to="/sales" icon={<SlBasket />} label="Sales" />
+        <NavItem to="/products" icon={<HiOutlineShoppingBag />} label="Products" />
+
+        <h3 className="uppercase text-sm text-profiletext tracking-widest mt-4">User</h3>
+        <hr className="border opacity-20 mt-2" />
+        <NavItem to="/notifications" icon={<IoMdNotificationsOutline />} label="Notifications" />
+        <NavItem to="/account" icon={<FaRegUser />} label="Profile" />
+        <NavItem to="/settings" icon={<IoSettingsOutline />} label="Settings" />
+      </nav>
+
+      <div className="mt-10 bg-payment w-full px-6 py-4 rounded-xl">
+        <img src="/images/Ellipse 1.png" className="mx-auto w-16 h-16 rounded-full object-cover" alt="" />
+        <p className="text-center mt-2">{user?.firstName} {user?.lastName}</p>
+        <h4 className="text-center font-bold text-base truncate">{user?.business?.name || ""}</h4>
+        <button onClick={handleLogout} className="loginbg px-6 py-3 text-white rounded-lg text-sm mt-3 w-3/4 block mx-auto text-center">
+          Log Out
+        </button>
+      </div>
+    </aside>
+  );
 }
-export default Navigation;
