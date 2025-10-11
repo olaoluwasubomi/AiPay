@@ -22,9 +22,18 @@ import Sales from "../Pages/Sales/Sales";
 import Notifications from "../Pages/Notifications/Notifications";
 import ProfileVerified from "../Pages/Profilesetup/ProfileVerified";
 
+// Buyer
 import ProductSales from "../Pages/Buyer/ProductSales";
-import Cart from "../Pages/Buyer/Cart";
-import ProductDetails from "../Pages/Buyer/ProductDetails";
+import BuyerDashboard from "../Pages/Buyer/Dashboard";
+import Checkout from "../Pages/Buyer/Checkout";
+
+// TPP (Third-Party Payments)
+import TppLayout from "@/Pages/Tpp/Layout";
+import TppDashboard from "@/Pages/Tpp/Dashboard";
+import TppPaymentHistory from "@/Pages/Tpp/PaymentHistory";
+import TppNotifications from "@/Pages/Tpp/Notifications";
+import TppProfile from "@/Pages/Tpp/Profile";
+import TppSettings from "@/Pages/Tpp/Settings";
 
 const AppRoutes = () => (
   <Routes>
@@ -44,7 +53,7 @@ const AppRoutes = () => (
     <Route path="/ProfileDashboard" element={<ProfileDashboard />} />
     <Route path="/AccountReview" element={<AccountReview />} />
 
-    {/* Dashboard gate decides: live vs under-review */}
+    {/* Dashboard gate */}
     <Route path="/dashboard" element={<DashboardGate />} />
     <Route path="/DashboardLive" element={<DashboardLive />} />
 
@@ -56,13 +65,33 @@ const AppRoutes = () => (
     <Route path="/notifications" element={<Notifications />} />
     <Route path="/account" element={<ProfileVerified />} />
 
-    {/* Buyer (existing) */}
+    {/* Buyer */}
     <Route path="/Buyer/ProductSales" element={<ProductSales />} />
-    <Route path="/buyer/Cart" element={<Cart />} />
-    <Route path="/buyer/ProductDetails" element={<ProductDetails />} />
+    <Route path="/buyer/products" element={<ProductSales />} />
+    <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+    <Route path="/buyer/checkout" element={<Checkout />} />
 
-    {/* Legacy path safe-guard: redirect any old /DashboardEmpty links to the gate */}
+    {/* Buyer redirects */}
+    <Route path="/Buyer/checkout" element={<Navigate to="/buyer/checkout" replace />} />
+    <Route path="/Buyer/dashboard" element={<Navigate to="/buyer/dashboard" replace />} />
+    <Route path="/Buyer/products" element={<Navigate to="/buyer/products" replace />} />
+
+    {/* TPP (nest children under the layout) */}
+    <Route path="/tpp" element={<TppLayout />}>
+      {/* redirect /tpp -> /tpp/dashboard */}
+      <Route index element={<Navigate to="dashboard" replace />} />
+      <Route path="dashboard" element={<TppDashboard />} />
+      <Route path="payments" element={<TppPaymentHistory />} />
+      <Route path="notifications" element={<TppNotifications />} />
+      <Route path="profile" element={<TppProfile />} />
+      <Route path="settings" element={<TppSettings />} />
+    </Route>
+
+    {/* Legacy path safe-guard */}
     <Route path="/DashboardEmpty" element={<Navigate to="/dashboard" replace />} />
+
+    {/* Optional 404 */}
+    {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
   </Routes>
 );
 

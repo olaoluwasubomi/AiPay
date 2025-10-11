@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getAccountStatus } from "@/lib/aipay";
 import { useAuth } from "@/context/AuthContext";
-
+import Loader from "@/components/Loader"; 
 // NOTE: Gate is in /Pages/Dashboard, shells are one level up in /Pages
 import DashboardLive from "./DashboardLive";
 import DashboardEmpty from "./DashboardEmpty";
 
-const Spinner = () => (
+const Spinner = ({ text = "Loading dashboard..." }) => (
   <div className="w-full h-[60vh] flex items-center justify-center">
-    <div className="animate-spin h-10 w-10 border-4 border-gray-200 border-t-blue-600 rounded-full" />
+    <Loader text={text} />
   </div>
 );
 
